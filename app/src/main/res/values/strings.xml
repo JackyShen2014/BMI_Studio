@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BMI</string>
+    <string name="height">身高 (cm)</string>
+    <string name="weight">体重 (kg)</string>
+    <string name="height_hint">enter height</string>
+    <string name="weight_hint">enter weight</string>
+    <string name="submit">计算 BMI</string>
+    <string name="result">Result</string>
+    <string name="suggest">suggest</string>
+    <string name="bmi_result">您的BMI值是</string>
+    <string name="advice_heavy">您老该减肥了</string>
+    <string name="advice_light">同学您真廋啊！羡慕嫉妒恨</string>
+    <string name="advice_average">同学，恭喜你的体重正常</string> 
+    <string name="about_title">关于Android BMI</string>
+    <string name="about_msg">作者：人称阿申   版本：V_01</string>
+    <string name="ok_lable">联系我</string>
+    <string name="homepage_label">首页</string>
+    <string name="homepage_url">http://cn.onlinebmicalculator.com/</string>
+    <string name="contact_map">geo: 39.9849090000,116.4758010000</string>
+    <string name="input_err">您还没有输入哦，请输入</string> 
+    <string name="input_err2">不能输入0哦</string>      
+    
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_report">BMI</string>
+
+    <string name="noti_over_weight">哦！您过肥了！</string>
+
+
+
+</resources>
