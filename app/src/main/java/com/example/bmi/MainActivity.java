@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -22,8 +23,10 @@ public class MainActivity extends ActionBarActivity {
 	private Button button_calc;
 	private EditText field_height;
 	private EditText field_weight;
-	private TextView view_result;
-	private TextView view_suggest;
+
+    private static final String PREF = "BMI_PREFER";
+    private static final String PREF_HIGHT = "PREF_HIGHT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,12 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         
         findViews();
+        SharedPreferences pref = getSharedPreferences(PREF,0);
+        String hight  = pref.getString(PREF_HIGHT,"");
+        if (!"".equals(hight)) {
+            field_height.setText(hight);
+            field_weight.requestFocus();
+        }
         setListeners();
     }
 
@@ -58,10 +67,17 @@ public class MainActivity extends ActionBarActivity {
     	button_calc = (Button) findViewById(R.id.calButton);
     	field_height = (EditText) findViewById(R.id.height);
     	field_weight = (EditText) findViewById(R.id.weightText);
-    	view_result = (TextView) findViewById(R.id.resultView);
-    	view_suggest = (TextView) findViewById(R.id.sugestView);
+
     }
-    
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences pref = getSharedPreferences(PREF,0);
+        pref.edit().putString(PREF_HIGHT,field_height.getText().toString()).commit();
+
+    }
+
     private void setListeners(){
     	button_calc.setOnClickListener(calcBMI);
     }
