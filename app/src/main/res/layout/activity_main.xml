@@ -8,66 +8,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bmi.MainActivity" >
 
-    <TextView
-        android:id="@+id/heightView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/height" />
 
-    <Button
-        android:id="@+id/calButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/weightText"
-        android:layout_below="@+id/weightText"
-        android:layout_marginTop="32dp"
-        android:text="@string/submit" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:id="@+id/resultView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/calButton"
-        android:layout_below="@+id/calButton"
-        android:layout_marginTop="27dp"
-        android:text="" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="身高"
+            android:id="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/sugestView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/resultView"
-        android:layout_below="@+id/resultView"
-        android:layout_marginTop="14dp"
-        android:text="" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:id="@+id/hight_spinner" />
 
-    <EditText
-        android:id="@+id/height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/heightView"
-        android:layout_below="@+id/heightView"
-        android:ems="10"
-        android:hint="@string/height_hint"
-        android:inputType="numberDecimal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="体重"
+            android:id="@+id/textView4" />
 
-    <TextView
-        android:id="@+id/weightView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/height"
-        android:layout_below="@+id/height"
-        android:layout_marginTop="22dp"
-        android:text="@string/weight" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/weight" />
 
-    <EditText
-        android:id="@+id/weightText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/weightView"
-        android:layout_below="@+id/weightView"
-        android:ems="10"
-        android:hint="@string/weight_hint"
-        android:inputType="numberDecimal" />
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="计算BMI"
+            android:id="@+id/calButton" />
+    </LinearLayout>
 </RelativeLayout>

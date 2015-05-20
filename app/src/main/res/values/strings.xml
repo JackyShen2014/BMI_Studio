@@ -27,6 +27,20 @@
 
     <string name="noti_over_weight">哦！您过肥了！</string>
 
+    <string-array name="height">
+        <item>160</item>
+        <item>161</item>
+        <item>162</item>
+        <item>163</item>
+        <item>164</item>
+        <item>165</item>
+        <item>166</item>
+        <item>167</item>
+        <item>168</item>
+        <item>169</item>
+        <item>170</item>
+    </string-array>
+
 
 
 </resources>

@@ -12,8 +12,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +24,13 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 	
 	private Button button_calc;
-	private EditText field_height;
+	private Spinner spin_height;
 	private EditText field_weight;
 
+    private int mHeight;
+
     private static final String PREF = "BMI_PREFER";
-    private static final String PREF_HIGHT = "PREF_HIGHT";
+    private static final String PREF_HEIGHT = "PREF_HEIGHT";
 
 
     @Override
@@ -34,13 +39,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         
         findViews();
-        SharedPreferences pref = getSharedPreferences(PREF,0);
-        String hight  = pref.getString(PREF_HIGHT,"");
-        if (!"".equals(hight)) {
-            field_height.setText(hight);
-            field_weight.requestFocus();
-        }
         setListeners();
+        restorePrefer();
     }
 
 
@@ -65,8 +65,13 @@ public class MainActivity extends ActionBarActivity {
     
     private void findViews(){
     	button_calc = (Button) findViewById(R.id.calButton);
-    	field_height = (EditText) findViewById(R.id.height);
-    	field_weight = (EditText) findViewById(R.id.weightText);
+    	field_weight = (EditText) findViewById(R.id.weight);
+        spin_height = (Spinner) findViewById(R.id.hight_spinner);
+
+        ArrayAdapter<CharSequence> adapter_height = ArrayAdapter.createFromResource(this,
+                R.array.height,android.R.layout.simple_spinner_item);
+        adapter_height.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin_height.setAdapter(adapter_height);
 
     }
 
@@ -74,12 +79,33 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences pref = getSharedPreferences(PREF,0);
-        pref.edit().putString(PREF_HIGHT,field_height.getText().toString()).commit();
+        pref.edit().putInt(PREF_HEIGHT, (spin_height.getSelectedItemPosition() + 160)).commit();
 
     }
 
     private void setListeners(){
     	button_calc.setOnClickListener(calcBMI);
+        spin_height.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mHeight = position+160;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void restorePrefer(){
+        SharedPreferences pref = getSharedPreferences(PREF,0);
+        int height  = pref.getInt(PREF_HEIGHT, 0);
+        if (height != 0) {
+            spin_height.setSelection(height-160);
+            field_weight.requestFocus();
+        }
+
     }
     
     private Button.OnClickListener calcBMI = new Button.OnClickListener(){
@@ -89,16 +115,16 @@ public class MainActivity extends ActionBarActivity {
 			
 
 			double BMI = 0;
-			if("".equals(field_height.getText().toString().trim()) || 
-					"".equals(field_weight.getText().toString().trim())){
-				Toast.makeText(MainActivity.this, R.string.input_err, Toast.LENGTH_SHORT)
-				.show();				
+			if("".equals(field_weight.getText().toString().trim())){
+				Toast.makeText(MainActivity.this, R.string.input_err, Toast.LENGTH_SHORT).show();
+                field_weight.requestFocus();
 			}else{
-				double height = Double.parseDouble(field_height.getText().toString());
+
 				double weight = Double.parseDouble(field_weight.getText().toString());
 				try{
-					if( height != 0 && weight != 0){
-						height = height/100;
+					if( mHeight != 0 && weight != 0){
+                        double height = mHeight;
+                        height = height/100;
 						BMI = weight/(height*height);
 
                         Intent i = new Intent(MainActivity.this,Report.class);
